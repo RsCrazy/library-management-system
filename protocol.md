@@ -16,11 +16,11 @@
 #### borrow bookName bookType
 #### borrow success/fail
 ### 书籍查询
-#### check bookName bookType
+#### check username passwd bookName bookType ;建议改一下，
 #### check fail
 #### check success bookName bookType bookStatus bookAuthor
 ### 书籍归还
-#### return
+#### username passwd return
 #### return success/fail
 ### 书籍总览
 #### overview null

@@ -1,11 +1,10 @@
 cmake_minimum_required(VERSION 3.28)
-project(Book)
+project(library-management-system)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 98)
 
-add_executable(Book main.cpp
-        BookManagement.h
-        interface.h
-        BSTree.h
-        BookManagement.cpp
-        interface.cpp)
+add_executable(server Server.cpp
+        main.cpp
+        Client.h
+        interface.cpp
+        BookManagement.cpp)

@@ -21,7 +21,7 @@ bool Connection::InitBookManagement(const string& rpos)
         _bma.pushnewtype(tmp._type);
         _mroot.push(_bma, tmp._type, tmp);
     }
-    std::list<SearchTree>::iterator it = _bma.getSearchTree().begin();
+    std::list<BSTree>::iterator it = _bma.getSearchTree().begin();
     while(it != _bma.getSearchTree().end()) {
         (*it).BalanceBST();
         it++;
@@ -56,9 +56,9 @@ bool Connection::pop_old_book(Manager& rma, const string& type, const string& na
     rma.pop(_bma, type, name);
     return true;
 }
-bool Connection::usrborrow(const Users& usr, const string& type, const string& name)
+bool Connection::usrborrow(Users& usr, const string& type, const string& name)
 {
-    return usr.borrow(_bma, type, name);
+    return usr.borrow(_bma,type,name);
 }
 Manager* Connection::Marigister(const string& name, const string& id)
 {
@@ -70,7 +70,8 @@ Manager* Connection::Marigister(const string& name, const string& id)
     }
 
     if (it == _vMa.end()) return nullptr;
-    return &_vMa[it - _vMa.begin()];
+    // return &_vMa[it - _vMa.begin()];
+    return &(*it);
 }
 Users* Connection::usrrigister(const string& name, const string& id)
 {
@@ -82,7 +83,6 @@ void Connection::the_connect_of_traverBSTree() {
 Connection::Connection() {
     ConnectionSize++;
     if(ConnectionSize > 1) perror("this interface can be constracted only once");
-    return;
 }
 bool Connection::clearUsr(const Users& rusr) {
     return _lur.pop(rusr);
@@ -111,6 +111,13 @@ bool Connection::clearAllBookInfor() {
     _bma.clear();
     return true;
 }
-
-
-
+vector<BookInfor> &Connection::getAllBookInfor(vector<BookInfor> &rvbi) {
+    _bma.pushAllBookInfor(rvbi);
+    return rvbi;
+}
+void Connection::balanceBST() {
+    _bma.getBalance();
+}
+bool Connection::returnBook(Users& usr) {
+    return usr.retBook(_bma);
+}
